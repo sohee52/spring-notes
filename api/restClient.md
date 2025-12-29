@@ -197,3 +197,28 @@ public PostDto getItem(int id) {
 
 > `PostApiClient`는
 > **Post API를 호출해서 JSON 응답을 `PostDto`로 변환해주는 HTTP 클라이언트 서비스**다.
+>
+
+
+---
+
+## restClient vs Controller
+
+| 구분      | ApiV1PostController      | PostApiClient             |
+| ------- | ------------------------ | ------------------------- |
+| 역할      | HTTP 요청 **수신**           | HTTP 요청 **전송**            |
+| 방향      | Inbound (들어옴)            | Outbound (나감)             |
+| 누가 호출함  | 브라우저, 프론트엔드, 다른 서버       | 서버 내부 코드                  |
+| 책임      | 요청 → 응답 변환               | API 호출 → 결과 변환            |
+| HTTP 지식 | 필수                       | 필수                        |
+| 도메인 로직  | 없음 (Facade에 위임)          | 없음                        |
+| 아키텍처 위치 | Interface / Adapter (In) | Interface / Adapter (Out) |
+
+```
+     [ 외부 세계 ]
+    ↑           ↓
+Controller   ApiClient
+    |           |
+    v           ^
+   Facade / Application
+```
